@@ -9,7 +9,7 @@ import { IMAGES } from "@/lib/images-config"
 export function TestimonialsSection() {
   const { ref, isVisible } = useScrollAnimation()
   const [currentSlide, setCurrentSlide] = useState(0)
-  const { selectedGame } = useGameSelection()
+  const { selectedGame, hasUserSelected } = useGameSelection()
   
   // Formata o nome do jogo para exibir no botao (remove espacos)
   const gameNameForButton = selectedGame.game.replace(/\s+/g, "")
@@ -48,13 +48,26 @@ export function TestimonialsSection() {
     >
       {/* CTA Button - Dinamico baseado na selecao do usuario */}
       <div className="flex justify-center mb-8">
-        <a
-          href={selectedGame.checkoutUrl}
-          className="relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm uppercase tracking-wider rounded-full shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:scale-105 transition-all duration-300 animate-pulse hover:animate-none"
-        >
-          <span className="relative z-10">ATUALIZAR MEU {gameNameForButton} AGORA</span>
-          <span className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 hover:opacity-100 transition-opacity duration-300" />
-        </a>
+        {hasUserSelected ? (
+          <a
+            href={selectedGame.checkoutUrl}
+            className="w-full max-w-sm bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold py-4 text-base rounded-lg shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center animate-[pulse_1.5s_ease-in-out_infinite]"
+          >
+            ATUALIZAR MEU {gameNameForButton} AGORA
+          </a>
+        ) : (
+          <button
+            onClick={() => {
+              const section = document.getElementById("selecao-jogo")
+              if (section) {
+                section.scrollIntoView({ behavior: "smooth", block: "center" })
+              }
+            }}
+            className="w-full max-w-sm bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold py-4 text-base rounded-lg shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center animate-[pulse_1.5s_ease-in-out_infinite]"
+          >
+            ATUALIZAR MEU {gameNameForButton} AGORA
+          </button>
+        )}
       </div>
 
       {/* Title */}

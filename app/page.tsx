@@ -10,11 +10,14 @@ import { HowItWorksSection } from "@/components/how-it-works-section"
 import { TestimonialsSection } from "@/components/testimonials-section"
 import { FooterSection } from "@/components/footer-section"
 import { GameSelectionProvider } from "@/contexts/game-selection-context"
+import { BackRedirectModal } from "@/components/back-redirect-modal"
 
 export default function Home() {
   return (
     <GameSelectionProvider>
       <main className="min-h-screen bg-background">
+        {/* Back Redirect Modal - Oferta especial ao tentar sair */}
+        <BackRedirectModal />
         {/* ========================================
             BARRA DE PROMOÇÃO NO TOPO
             - Fixa no topo da página

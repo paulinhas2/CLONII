@@ -69,8 +69,8 @@ export function FooterSection() {
           isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
         }`}
       >
-        <span className="text-foreground">WG</span>
-        <span className="text-foreground hover:text-[#3b82f6] transition-colors duration-300">PATCH</span>
+        <span className="text-white">WG</span>
+        <span className="hover:text-[#3b82f6] transition-colors duration-300 text-background">PATCH</span>
       </h3>
 
       {/* Subtitle */}

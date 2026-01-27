@@ -17,20 +17,23 @@ interface GameSelection {
 interface GameSelectionContextType {
   selectedGame: GameSelection
   setSelectedGame: (game: GameSelection) => void
+  hasUserSelected: boolean
+  setHasUserSelected: (value: boolean) => void
 }
 
 const defaultGame: GameSelection = {
   game: "EA FC 26",
-  checkoutUrl: "#checkout-fc26"
+  checkoutUrl: "https://go.invictuspay.app.br/8dxwdye1ez"
 }
 
 const GameSelectionContext = createContext<GameSelectionContextType | undefined>(undefined)
 
 export function GameSelectionProvider({ children }: { children: ReactNode }) {
   const [selectedGame, setSelectedGame] = useState<GameSelection>(defaultGame)
+  const [hasUserSelected, setHasUserSelected] = useState(false)
 
   return (
-    <GameSelectionContext.Provider value={{ selectedGame, setSelectedGame }}>
+    <GameSelectionContext.Provider value={{ selectedGame, setSelectedGame, hasUserSelected, setHasUserSelected }}>
       {children}
     </GameSelectionContext.Provider>
   )

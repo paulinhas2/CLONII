@@ -38,9 +38,9 @@ export function OfferCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [selectedOffer, setSelectedOffer] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
-  const [isPulsing, setIsPulsing] = useState(true)
+  const [isPulsing, setIsPulsing] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
-  const { setSelectedGame } = useGameSelection()
+  const { setSelectedGame, setHasUserSelected } = useGameSelection()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -79,7 +79,7 @@ export function OfferCarousel() {
   const currentOffer = offers[selectedOffer]
 
   return (
-    <section ref={sectionRef} className="px-4 py-6">
+    <section ref={sectionRef} id="selecao-jogo" className="px-4 py-6">
       {/* Carousel */}
       <div 
         className={`relative mb-4 transition-all duration-700 ${
@@ -163,6 +163,7 @@ export function OfferCarousel() {
                 game: offer.game,
                 checkoutUrl: offer.checkoutUrl
               })
+              setHasUserSelected(true)
             }}
             className={`flex-1 py-3 px-4 text-left transition-all duration-300 hover:bg-blue-50 ${
               selectedOffer === index
@@ -185,12 +186,9 @@ export function OfferCarousel() {
       >
         <Button
           asChild
-          className={`w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold py-6 text-base rounded-lg mb-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/30 active:scale-[0.98] ${
-            isPulsing ? "shadow-lg shadow-blue-500/40" : ""
-          }`}
+          className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold py-6 text-base rounded-lg mb-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/30 active:scale-[0.98] shadow-lg shadow-blue-500/40 animate-[pulse_1.5s_ease-in-out_infinite]"
         >
           <a href={currentOffer.checkoutUrl} className="flex items-center justify-center gap-2">
-            
             QUERO ATUALIZAR MEU EA FC HOJE
           </a>
         </Button>
@@ -204,7 +202,7 @@ export function OfferCarousel() {
       >
         <span className="text-gray-500 line-through">DE: R$ {currentOffer.originalPrice}</span>
         <div className="text-2xl font-black">
-          POR: <span className="text-[#2563eb] animate-pulse">R$ {currentOffer.price}</span>
+          POR: <span className={`text-[#2563eb] ${isPulsing ? 'animate-pulse' : ''}`}>R$ {currentOffer.price}</span>
         </div>
       </div>
 
