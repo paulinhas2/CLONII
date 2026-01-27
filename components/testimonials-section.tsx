@@ -4,12 +4,13 @@ import { useEffect, useState } from "react"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import Image from "next/image"
 import { useGameSelection } from "@/contexts/game-selection-context"
-import { IMAGES } from "@/lib/images-config"
+import { useUTMParams } from "@/hooks/use-utm-params"
 
 export function TestimonialsSection() {
   const { ref, isVisible } = useScrollAnimation()
   const [currentSlide, setCurrentSlide] = useState(0)
   const { selectedGame, hasUserSelected } = useGameSelection()
+  const { appendUTMsToUrl } = useUTMParams()
   
   // Formata o nome do jogo para exibir no botao (remove espacos)
   const gameNameForButton = selectedGame.game.replace(/\s+/g, "")
@@ -50,7 +51,7 @@ export function TestimonialsSection() {
       <div className="flex justify-center mb-8">
         {hasUserSelected ? (
           <a
-            href={selectedGame.checkoutUrl}
+            href={appendUTMsToUrl(selectedGame.checkoutUrl)}
             className="w-full max-w-sm bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold py-4 text-base rounded-lg shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center animate-[pulse_1.5s_ease-in-out_infinite]"
           >
             ATUALIZAR MEU {gameNameForButton} AGORA

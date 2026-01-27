@@ -49,10 +49,17 @@ export default function RootLayout({
             alt=""
           />
         </noscript>
+        {/* Utmify UTM Tracking Script */}
+        <Script
+          src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+          data-utmify-prevent-xcod-sck
+          data-utmify-prevent-subids
+          strategy="afterInteractive"
+        />
+        {/* Utmify Pixel - SEM captura de InitiateCheckout */}
         <Script id="utmify-pixel" strategy="afterInteractive">
           {`
             window.pixelId = "6978541824c1fe9253eb40e6";
-            window.utmify_prevent_ic = true;
             var a = document.createElement("script");
             a.setAttribute("async", "");
             a.setAttribute("defer", "");

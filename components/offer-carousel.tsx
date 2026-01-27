@@ -6,6 +6,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useGameSelection } from "@/contexts/game-selection-context"
 import { IMAGES } from "@/lib/images-config"
+import { useUTMParams } from "@/hooks/use-utm-params"
 
 /* ================================================
    OFERTAS / PRODUTOS
@@ -41,6 +42,7 @@ export function OfferCarousel() {
   const [isPulsing, setIsPulsing] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const { setSelectedGame, setHasUserSelected } = useGameSelection()
+  const { appendUTMsToUrl } = useUTMParams()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -158,10 +160,10 @@ export function OfferCarousel() {
             onClick={() => {
               setSelectedOffer(index)
               setCurrentSlide(index)
-              // Atualiza o contexto global com a seleção do usuário
+              // Atualiza o contexto global com a seleção do usuário (URL já com UTMs)
               setSelectedGame({
                 game: offer.game,
-                checkoutUrl: offer.checkoutUrl
+                checkoutUrl: appendUTMsToUrl(offer.checkoutUrl)
               })
               setHasUserSelected(true)
             }}
@@ -188,7 +190,7 @@ export function OfferCarousel() {
           asChild
           className="w-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold py-6 text-base rounded-lg mb-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/30 active:scale-[0.98] shadow-lg shadow-blue-500/40 animate-[pulse_1.5s_ease-in-out_infinite]"
         >
-          <a href={currentOffer.checkoutUrl} className="flex items-center justify-center gap-2">
+          <a href={appendUTMsToUrl(currentOffer.checkoutUrl)} className="flex items-center justify-center gap-2">
             QUERO ATUALIZAR MEU EA FC HOJE
           </a>
         </Button>

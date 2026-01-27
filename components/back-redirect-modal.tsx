@@ -1,8 +1,9 @@
 "use client"
 
 import { useEffect, useState, useCallback } from "react"
-import { Gift, Gamepad2, Video, Ticket, AlertTriangle } from "lucide-react"
+import { Gamepad2, Ticket, AlertTriangle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useUTMParams } from "@/hooks/use-utm-params"
 
 type ModalScreen = "main" | "lastChance"
 
@@ -10,6 +11,7 @@ export function BackRedirectModal() {
   const [isOpen, setIsOpen] = useState(false)
   const [hasTriggered, setHasTriggered] = useState(false)
   const [currentScreen, setCurrentScreen] = useState<ModalScreen>("main")
+  const { redirectWithUTMs } = useUTMParams()
 
   const handleBackButton = useCallback(() => {
     if (!hasTriggered) {
@@ -92,22 +94,22 @@ export function BackRedirectModal() {
     setIsOpen(false)
   }
 
-  // Main offer links
+  // Main offer links - com parametros UTM
   const handleSelectEAFC26 = () => {
-    window.location.href = "https://go.invictuspay.app.br/kvo05"
+    redirectWithUTMs("https://go.invictuspay.app.br/kvo05")
   }
 
   const handleSelectEAFC25 = () => {
-    window.location.href = "https://go.invictuspay.app.br/coucm"
+    redirectWithUTMs("https://go.invictuspay.app.br/coucm")
   }
 
-  // Last chance offer links (discounted prices)
+  // Last chance offer links (discounted prices) - com parametros UTM
   const handleLastChanceEAFC26 = () => {
-    window.location.href = "https://go.invictuspay.app.br/xjtgl"
+    redirectWithUTMs("https://go.invictuspay.app.br/xjtgl")
   }
 
   const handleLastChanceEAFC25 = () => {
-    window.location.href = "https://go.invictuspay.app.br/sak9r"
+    redirectWithUTMs("https://go.invictuspay.app.br/sak9r")
   }
 
   if (!isOpen) return null
