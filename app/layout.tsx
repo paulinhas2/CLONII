@@ -49,6 +49,17 @@ export default function RootLayout({
             alt=""
           />
         </noscript>
+        <Script id="utmify-pixel" strategy="afterInteractive">
+          {`
+            window.pixelId = "6978541824c1fe9253eb40e6";
+            window.utmify_prevent_ic = true;
+            var a = document.createElement("script");
+            a.setAttribute("async", "");
+            a.setAttribute("defer", "");
+            a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+            document.head.appendChild(a);
+          `}
+        </Script>
       </head>
       <body className={`font-sans antialiased`}>
         {children}
