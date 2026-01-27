@@ -94,20 +94,20 @@ export function BackRedirectModal() {
 
   // Main offer links
   const handleSelectEAFC26 = () => {
-    window.location.href = "https://api.whatsapp.com/send?phone=5511999999999&text=Olá! Vim pelo site e quero aproveitar a OFERTA EXCLUSIVA do EAFC26 com INSTALAÇÃO REMOTA GRÁTIS + Cupom 5OFF!"
+    window.location.href = "https://go.invictuspay.app.br/kvo05"
   }
 
   const handleSelectEAFC25 = () => {
-    window.location.href = "https://api.whatsapp.com/send?phone=5511999999999&text=Olá! Vim pelo site e quero aproveitar a OFERTA EXCLUSIVA do EAFC25 com INSTALAÇÃO REMOTA GRÁTIS + Cupom 5OFF!"
+    window.location.href = "https://go.invictuspay.app.br/coucm"
   }
 
   // Last chance offer links (discounted prices)
   const handleLastChanceEAFC26 = () => {
-    window.location.href = "https://api.whatsapp.com/send?phone=5511999999999&text=Olá! Vim pelo site e quero o EAFC26 por R$19,90 - ÚLTIMA CHANCE!"
+    window.location.href = "https://go.invictuspay.app.br/xjtgl"
   }
 
   const handleLastChanceEAFC25 = () => {
-    window.location.href = "https://api.whatsapp.com/send?phone=5511999999999&text=Olá! Vim pelo site e quero o EAFC25 por R$9,90 - ÚLTIMA CHANCE!"
+    window.location.href = "https://go.invictuspay.app.br/sak9r"
   }
 
   if (!isOpen) return null
