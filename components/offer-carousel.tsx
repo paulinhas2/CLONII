@@ -160,10 +160,10 @@ export function OfferCarousel() {
             onClick={() => {
               setSelectedOffer(index)
               setCurrentSlide(index)
-              // Atualiza o contexto global com a seleção do usuário (URL já com UTMs)
+              // Atualiza o contexto global com a seleção do usuário (URL base, UTMs sao adicionados no momento do redirect)
               setSelectedGame({
                 game: offer.game,
-                checkoutUrl: appendUTMsToUrl(offer.checkoutUrl)
+                checkoutUrl: offer.checkoutUrl
               })
               setHasUserSelected(true)
             }}

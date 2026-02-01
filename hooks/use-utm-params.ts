@@ -79,32 +79,24 @@ export function useUTMParams() {
     setIsLoaded(true)
   }, [])
 
-  // Funcao para adicionar UTMs a uma URL
+  // Funcao para adicionar UTMs a uma URL (usando abordagem UTMify oficial)
+  // Script UTMify: url.trim() + (url.indexOf('?') > 0 ? '&' : '?') + document.location.search.replace('?', '')
   const appendUTMsToUrl = useCallback((baseUrl: string): string => {
-    if (!baseUrl || Object.keys(utmParams).length === 0) return baseUrl
+    if (!baseUrl) return baseUrl
 
-    try {
-      const url = new URL(baseUrl)
-      
-      // Adiciona cada parametro UTM que existe
-      Object.entries(utmParams).forEach(([key, value]) => {
-        if (value && !url.searchParams.has(key)) {
-          url.searchParams.set(key, value)
-        }
-      })
+    // Abordagem UTMify oficial: pega TODOS os parametros da URL atual
+    const currentSearch = typeof window !== "undefined" ? document.location.search : ""
+    
+    // Se nao tem parametros na URL atual, retorna a URL base
+    if (!currentSearch) return baseUrl.trim()
 
-      return url.toString()
-    } catch {
-      // Se falhar ao parsear a URL, tenta adicionar query string manualmente
-      const separator = baseUrl.includes("?") ? "&" : "?"
-      const queryString = Object.entries(utmParams)
-        .filter(([, value]) => value)
-        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value!)}`)
-        .join("&")
-      
-      return queryString ? `${baseUrl}${separator}${queryString}` : baseUrl
-    }
-  }, [utmParams])
+    // Logica exata do script UTMify
+    const urlTrimmed = baseUrl.trim()
+    const separator = urlTrimmed.indexOf("?") > 0 ? "&" : "?"
+    const paramsToAppend = currentSearch.replace("?", "")
+    
+    return urlTrimmed + separator + paramsToAppend
+  }, [])
 
   // Funcao para redirecionar com UTMs
   const redirectWithUTMs = useCallback((baseUrl: string) => {
@@ -147,29 +139,21 @@ export function getStoredUTMParams(): UTMParams {
   }
 }
 
-// Funcao utilitaria para adicionar UTMs a URL fora de componentes React
+// Funcao utilitaria para adicionar UTMs a URL fora de componentes React (abordagem UTMify oficial)
+// Script UTMify: url.trim() + (url.indexOf('?') > 0 ? '&' : '?') + document.location.search.replace('?', '')
 export function appendUTMsToUrlStatic(baseUrl: string): string {
-  const utmParams = getStoredUTMParams()
+  if (!baseUrl) return baseUrl
+
+  // Abordagem UTMify oficial: pega TODOS os parametros da URL atual
+  const currentSearch = typeof window !== "undefined" ? document.location.search : ""
   
-  if (!baseUrl || Object.keys(utmParams).length === 0) return baseUrl
+  // Se nao tem parametros na URL atual, retorna a URL base
+  if (!currentSearch) return baseUrl.trim()
 
-  try {
-    const url = new URL(baseUrl)
-    
-    Object.entries(utmParams).forEach(([key, value]) => {
-      if (value && !url.searchParams.has(key)) {
-        url.searchParams.set(key, value)
-      }
-    })
-
-    return url.toString()
-  } catch {
-    const separator = baseUrl.includes("?") ? "&" : "?"
-    const queryString = Object.entries(utmParams)
-      .filter(([, value]) => value)
-      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value!)}`)
-      .join("&")
-    
-    return queryString ? `${baseUrl}${separator}${queryString}` : baseUrl
-  }
+  // Logica exata do script UTMify
+  const urlTrimmed = baseUrl.trim()
+  const separator = urlTrimmed.indexOf("?") > 0 ? "&" : "?"
+  const paramsToAppend = currentSearch.replace("?", "")
+  
+  return urlTrimmed + separator + paramsToAppend
 }
